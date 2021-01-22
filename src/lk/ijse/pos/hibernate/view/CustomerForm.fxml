@@ -7,10 +7,12 @@
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="385.0" prefWidth="645.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.pos.hibernate.controller.CustomerFormController">
+<AnchorPane fx:id="root" prefHeight="385.0" prefWidth="645.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.pos.hibernate.controller.CustomerFormController">
    <children>
       <Label layoutX="203.0" layoutY="14.0" text="Customer Form" textFill="WHITE">
          <font>
@@ -48,11 +50,11 @@
       </JFXButton>
       <TableView fx:id="tblCustomer" layoutX="14.0" layoutY="210.0" prefHeight="161.0" prefWidth="620.0">
         <columns>
-          <TableColumn prefWidth="85.0" text="ID" />
-          <TableColumn prefWidth="157.0" text="Name" />
-            <TableColumn prefWidth="162.0" text="Address" />
-            <TableColumn prefWidth="127.0" text="Salary" />
-            <TableColumn prefWidth="88.0" text="Delete" />
+          <TableColumn fx:id="colId" prefWidth="85.0" text="ID" />
+          <TableColumn fx:id="colName" prefWidth="157.0" text="Name" />
+            <TableColumn fx:id="colAddress" prefWidth="162.0" text="Address" />
+            <TableColumn fx:id="colSalary" prefWidth="127.0" text="Salary" />
+            <TableColumn fx:id="colOperate" prefWidth="88.0" text="Delete" />
         </columns>
       </TableView>
       <JFXButton buttonType="RAISED" layoutX="522.0" layoutY="167.0" onAction="#btnUpdateOnAction" prefHeight="31.0" prefWidth="90.0" style="-fx-background-color: #e74c3c; -fx-background-radius: 50;" text="UPDATE" textFill="WHITE">
@@ -62,6 +64,21 @@
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
+      </JFXButton>
+      <JFXButton buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" layoutX="14.0" layoutY="12.0" onAction="#btnBackOnAction" prefHeight="31.0" prefWidth="29.0">
+         <graphic>
+            <ImageView fitHeight="31.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../asserts/back.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <font>
+            <Font name="Ubuntu Bold" size="13.0" />
+         </font>
       </JFXButton>
    </children>
 </AnchorPane>

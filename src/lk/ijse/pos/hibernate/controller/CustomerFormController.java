@@ -1,37 +1,117 @@
 package lk.ijse.pos.hibernate.controller;
 
 import com.jfoenix.controls.JFXTextField;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TableView;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import lk.ijse.pos.hibernate.business.BOFactory;
 import lk.ijse.pos.hibernate.business.BOType;
 import lk.ijse.pos.hibernate.business.custom.impl.CustomerBOImpl;
 import lk.ijse.pos.hibernate.dto.CustomerDTO;
+import lk.ijse.pos.hibernate.view.tm.CustomerTM;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 public class CustomerFormController {
     public JFXTextField txtId;
     public JFXTextField txtName;
     public JFXTextField txtAddress;
     public JFXTextField txtSalary;
-    public TableView tblCustomer;
+    public TableView <CustomerTM> tblCustomer;
+    public TableColumn colId;
+    public TableColumn colName;
+    public TableColumn colAddress;
+    public TableColumn colOperate;
+    public TableColumn colSalary;
+    public AnchorPane root;
 
     CustomerBOImpl customerBOImpl = BOFactory.getInstance().getBO(BOType.CUSTOMER);
 
     public void initialize(){
         findAll();
+        tableListener();
+        setCellValueFactory();
+    }
+
+    private void tableListener(){
+        tblCustomer.getSelectionModel().selectedItemProperty().
+                addListener((observable, oldValue, newValue) -> {
+                    setData(newValue);
+                });
+    }
+
+    private void setData(CustomerTM tm) {
+        try {
+            txtId.setText(tm.getId());
+            txtName.setText(tm.getName());
+            txtAddress.setText(tm.getAddress());
+            txtSalary.setText(String.valueOf(tm.getSalary()));
+        }catch (Exception e){
+
+        }
+    }
+
+    private void setCellValueFactory(){
+        colId.setCellValueFactory(new PropertyValueFactory("Id"));
+        colName.setCellValueFactory(new PropertyValueFactory("Name"));
+        colAddress.setCellValueFactory(new PropertyValueFactory("Address"));
+        colSalary.setCellValueFactory(new PropertyValueFactory("Salary"));
+        colOperate.setCellValueFactory(new PropertyValueFactory("btn"));
     }
 
     public void findAll(){
         try {
+            ObservableList<CustomerTM> tmList = FXCollections.observableArrayList();
             List<CustomerDTO> all = customerBOImpl.findAll();
-            for (CustomerDTO customerDTO : all) {
-                System.out.println(customerDTO);
+            for(CustomerDTO dto : all){
+                Button btn = new Button("Delete");
+                CustomerTM tm = new CustomerTM(
+                        dto.getId(),
+                        dto.getName(),
+                        dto.getAddress(),
+                        dto.getSalary(),
+                        btn
+                );
+                tmList.add(tm);
+                btn.setOnAction((e) -> {
+                    try {
+
+                        ButtonType ok = new ButtonType("OK",
+                                ButtonBar.ButtonData.OK_DONE);
+                        ButtonType no = new ButtonType("NO",
+                                ButtonBar.ButtonData.CANCEL_CLOSE);
+
+                        Alert alert = new Alert(Alert.AlertType.CONFIRMATION,
+                                "Are You Sure ?", ok, no);
+                        Optional<ButtonType> result = alert.showAndWait();
+                        if (result.orElse(no) == ok) {
+                            if (customerBOImpl.delete(tm.getId())) {
+                                new Alert(Alert.AlertType.CONFIRMATION,
+                                        "Deleted", ButtonType.OK).show();
+                                findAll();
+                                return;
+                            }
+                            new Alert(Alert.AlertType.WARNING,
+                                    "Try Again", ButtonType.OK).show();
+                        } else {
+                            //no
+                        }
+
+
+                    } catch (Exception e1) {
+                        e1.printStackTrace();
+                    }
+                });
             }
+            tblCustomer.setItems(tmList);
         } catch (Exception e) {
-            e.printStackTrace();
+          //  new Alert(Alert.AlertType.WARNING,"oops! cannot load data to the table").show();
         }
     }
 
@@ -48,10 +128,24 @@ public class CustomerFormController {
                     address,
                     salary
             )));{
-                new Alert(Alert.AlertType.CONFIRMATION, "Ok").showAndWait();
+                new Alert(Alert.AlertType.CONFIRMATION, "Do you wanna Save it?").showAndWait();
+                txtId.setText(null);
+                txtName.setText(null);
+                txtSalary.setText(null);
+                txtAddress.setText(null);
+                findAll();
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR, "Something Happened. try again carefully!").showAndWait();
         }
+    }
+
+    public void btnUpdateOnAction(ActionEvent actionEvent) {
+
+    }
+
+    public void btnBackOnAction(ActionEvent actionEvent) throws IOException {
+        this.root.getChildren().clear();
+        this.root.getChildren().add(FXMLLoader.load(this.getClass().getResource("../view/DashBoardForm.fxml")));
     }
 }

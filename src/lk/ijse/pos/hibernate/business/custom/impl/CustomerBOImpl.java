@@ -46,4 +46,9 @@ public class CustomerBOImpl implements CustomerBO {
 
     }
 
+    @Override
+    public boolean delete(String id) throws Exception {
+        return customerDAO.delete(id);
+    }
+
 }
