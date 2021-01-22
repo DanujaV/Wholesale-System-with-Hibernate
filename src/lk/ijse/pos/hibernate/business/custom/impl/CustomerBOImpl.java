@@ -51,4 +51,14 @@ public class CustomerBOImpl implements CustomerBO {
         return customerDAO.delete(id);
     }
 
+    @Override
+    public boolean update(CustomerDTO customerDTO) throws Exception {
+        return customerDAO.update(new Customer(
+                customerDTO.getId(),
+                customerDTO.getName(),
+                customerDTO.getAddress(),
+                customerDTO.getSalary()
+        ));
+    }
+
 }

@@ -28,7 +28,14 @@ public class CustomerDAOImpl implements CustomerDAO {
 
     @Override
     public boolean update(Customer entity) throws Exception {
-        return false;
+        Session session = FactoryConfiguration.getInstance().getSession();
+
+        Transaction transaction = session.beginTransaction();
+
+        session.update(entity);
+
+        transaction.commit();
+        return true;
     }
 
     @Override

@@ -11,4 +11,6 @@ public interface CustomerBO extends SuperBO {
     public List<CustomerDTO> findAll() throws Exception;
 
     public boolean delete(String id) throws Exception;
+
+    public boolean update(CustomerDTO customerDTO) throws Exception;
 }

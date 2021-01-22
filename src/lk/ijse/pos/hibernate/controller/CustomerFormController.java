@@ -142,6 +142,30 @@ public class CustomerFormController {
 
     public void btnUpdateOnAction(ActionEvent actionEvent) {
 
+        String id = txtId.getText();
+        String name = txtName.getText();
+        String address = txtAddress.getText();
+        double salary = Double.parseDouble(txtSalary.getText());
+        try {
+            if(customerBOImpl.update(new CustomerDTO(
+                    id,
+                    name,
+                    address,
+                    salary
+            ))){
+                //new Alert(Alert.AlertType.CONFIRMATION, "Updated").showAndWait();
+                findAll();
+                txtId.setText(null);
+                txtName.setText(null);
+                txtAddress.setText(null);
+                txtSalary.setText(null);
+            }else {
+                new Alert(Alert.AlertType.ERROR, "Something Happened").show();
+            }
+        } catch (Exception e) {
+            new Alert(Alert.AlertType.ERROR, "Something Happened").show();
+        }
+
     }
 
     public void btnBackOnAction(ActionEvent actionEvent) throws IOException {
