@@ -14,11 +14,12 @@ public class CustomerDAOImpl implements CustomerDAO {
     public boolean add(Customer entity) throws Exception {
         Session session = FactoryConfiguration.getInstance().getSession();
 
-        Transaction transaction = session.getTransaction();
+        Transaction transaction = session.beginTransaction();
 
         session.save(entity);
 
         transaction.commit();
+        session.close();
         return true;
     }
 
