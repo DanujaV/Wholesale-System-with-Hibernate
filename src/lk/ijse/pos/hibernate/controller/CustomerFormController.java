@@ -9,6 +9,8 @@ import lk.ijse.pos.hibernate.business.BOType;
 import lk.ijse.pos.hibernate.business.custom.impl.CustomerBOImpl;
 import lk.ijse.pos.hibernate.dto.CustomerDTO;
 
+import java.util.List;
+
 public class CustomerFormController {
     public JFXTextField txtId;
     public JFXTextField txtName;
@@ -17,6 +19,21 @@ public class CustomerFormController {
     public TableView tblCustomer;
 
     CustomerBOImpl customerBOImpl = BOFactory.getInstance().getBO(BOType.CUSTOMER);
+
+    public void initialize(){
+        findAll();
+    }
+
+    public void findAll(){
+        try {
+            List<CustomerDTO> all = customerBOImpl.findAll();
+            for (CustomerDTO customerDTO : all) {
+                System.out.println(customerDTO);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     public void btnSaveOnAction(ActionEvent actionEvent) {
         String id = txtId.getText();

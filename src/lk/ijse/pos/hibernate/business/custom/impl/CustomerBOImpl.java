@@ -9,6 +9,9 @@ import lk.ijse.pos.hibernate.dao.custom.impl.CustomerDAOImpl;
 import lk.ijse.pos.hibernate.dto.CustomerDTO;
 import lk.ijse.pos.hibernate.entity.Customer;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class CustomerBOImpl implements CustomerBO {
 
     CustomerDAOImpl customerDAO = DAOFactory.getInstance().getDAO(DAOType.CUSTOMER);
@@ -23,4 +26,24 @@ public class CustomerBOImpl implements CustomerBO {
         ));
 
     }
+
+    @Override
+    public List<CustomerDTO> findAll() throws Exception {
+        List<Customer> all = customerDAO.findAll();
+        ArrayList<CustomerDTO> dtoList = new ArrayList<>();
+
+        CustomerDTO customerDTO = null;
+
+        for (Customer customer : all) {
+            dtoList.add(new CustomerDTO(
+                    customer.getId(),
+                    customer.getName(),
+                    customer.getAddress(),
+                    customer.getSalary()
+            ));
+        }
+        return dtoList;
+
+    }
+
 }
