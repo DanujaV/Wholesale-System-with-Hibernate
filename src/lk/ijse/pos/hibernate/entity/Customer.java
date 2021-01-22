@@ -6,8 +6,7 @@ import javax.persistence.Id;
 @Entity
 public class Customer implements SuperEntity{
     @Id
-    private
-    String id;
+    private String id;
     private String name;
     private String address;
     private double salary;

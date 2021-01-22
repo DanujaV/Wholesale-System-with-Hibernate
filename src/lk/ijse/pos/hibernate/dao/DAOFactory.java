@@ -5,15 +5,13 @@ import lk.ijse.pos.hibernate.dao.custom.impl.CustomerDAOImpl;
 public class DAOFactory {
     private static DAOFactory daoFactory;
 
-    private DAOFactory(){
-
-    }
+    private DAOFactory(){}
 
     public static DAOFactory getInstance(){
-        return (daoFactory == null) ? daoFactory = new DAOFactory() : daoFactory;
+        return (null == daoFactory) ? daoFactory = new DAOFactory() : daoFactory;
     }
 
-    public <T extends SuperDAO> T getDAO(DAOType daoType){
+    public <T extends SuperDAO>T getDAO(DAOType daoType){
         switch (daoType){
             case CUSTOMER:
                 return (T) new CustomerDAOImpl();

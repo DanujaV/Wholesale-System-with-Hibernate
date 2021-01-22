@@ -14,17 +14,16 @@ public class CustomerDAOImpl implements CustomerDAO {
     public boolean add(Customer entity) throws Exception {
         Session session = FactoryConfiguration.getInstance().getSession();
 
-        Transaction transaction = session.beginTransaction();
+        Transaction transaction = session.getTransaction();
 
         session.save(entity);
 
         transaction.commit();
-
         return true;
     }
 
     @Override
-    public boolean update(Customer entity, String s) throws Exception {
+    public boolean update(Customer entity) throws Exception {
         return false;
     }
 
@@ -34,12 +33,12 @@ public class CustomerDAOImpl implements CustomerDAO {
     }
 
     @Override
-    public Customer find(String id) throws Exception {
+    public Customer find(String s) throws Exception {
         return null;
     }
 
     @Override
-    public List<Customer> getAll() throws Exception {
+    public List<Customer> findAll() throws Exception {
         return null;
     }
 }

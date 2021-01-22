@@ -4,10 +4,8 @@
     "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
   <session-factory>
-    <property name="connection.url"/>
-    <property name="connection.driver_class"/>
     <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/ThogaKade</property>
+    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/hibernate</property>
     <property name="hibernate.connection.username">root</property>
     <property name="hibernate.connection.password">25412541</property>
     <property name="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</property>
