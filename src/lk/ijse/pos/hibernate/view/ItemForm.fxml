@@ -49,7 +49,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </JFXButton>
-      <TableView fx:id="tblCustomer" layoutX="12.0" layoutY="220.0" prefHeight="161.0" prefWidth="620.0">
+      <TableView fx:id="tblItem" layoutX="13.0" layoutY="215.0" prefHeight="161.0" prefWidth="620.0">
          <columns>
             <TableColumn fx:id="colCode" prefWidth="85.0" text="Code" />
             <TableColumn fx:id="colDescription" prefWidth="157.0" text="Description" />

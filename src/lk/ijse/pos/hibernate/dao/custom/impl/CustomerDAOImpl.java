@@ -12,8 +12,6 @@ import java.util.List;
 
 public class CustomerDAOImpl implements CustomerDAO {
 
-
-
     @Override
     public boolean add(Customer entity) throws Exception {
         Session session = FactoryConfiguration.getInstance().getSession();
