@@ -1,6 +1,7 @@
 package lk.ijse.pos.hibernate.dao;
 
 import lk.ijse.pos.hibernate.dao.custom.impl.CustomerDAOImpl;
+import lk.ijse.pos.hibernate.dao.custom.impl.ItemDAOImpl;
 
 public class DAOFactory {
     private static DAOFactory daoFactory;
@@ -15,6 +16,9 @@ public class DAOFactory {
         switch (daoType){
             case CUSTOMER:
                 return (T) new CustomerDAOImpl();
+            case ITEM:
+                return (T) new ItemDAOImpl();
+
             default:
                 return null;
         }
