@@ -24,7 +24,6 @@ public class CustomerBOImpl implements CustomerBO {
                 customerDTO.getAddress(),
                 customerDTO.getSalary()
         ));
-
     }
 
     @Override
