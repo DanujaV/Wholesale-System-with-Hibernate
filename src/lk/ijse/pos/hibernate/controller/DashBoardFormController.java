@@ -13,4 +13,9 @@ public class DashBoardFormController {
         this.root.getChildren().clear();
         this.root.getChildren().add(FXMLLoader.load(this.getClass().getResource("../view/CustomerForm.fxml")));
     }
+
+    public void btnItemOnAction(ActionEvent actionEvent) throws IOException {
+        this.root.getChildren().clear();
+        this.root.getChildren().add(FXMLLoader.load(this.getClass().getResource("../view/ItemForm.fxml")));
+    }
 }
