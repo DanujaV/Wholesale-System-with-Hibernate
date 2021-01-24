@@ -1,24 +1,27 @@
 package lk.ijse.pos.hibernate.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Orders implements SuperEntity{
     @Id
     private String oId;
-    private String data;
+    private String date;
     @ManyToOne
     private Customer customer;
+
+    @OneToMany(mappedBy = "orders")
+    private List<OrderDetail> orderDetails;
+
+
 
     public Orders() {
     }
 
-    public Orders(String oId, String data, Customer customer) {
+    public Orders(String oId, String date, Customer customer) {
         this.oId = oId;
-        this.data = data;
+        this.date = date;
         this.customer = customer;
     }
 
@@ -38,19 +41,19 @@ public class Orders implements SuperEntity{
         this.oId = oId;
     }
 
-    public String getData() {
-        return data;
+    public String getdate() {
+        return date;
     }
 
-    public void setData(String data) {
-        this.data = data;
+    public void setdate(String date) {
+        this.date = date;
     }
 
     @Override
     public String toString() {
         return "Orders{" +
                 "oId='" + oId + '\'' +
-                ", data='" + data + '\'' +
+                ", date='" + date + '\'' +
                 ", customer=" + customer +
                 '}';
     }
